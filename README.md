@@ -4,6 +4,7 @@ Through this technique it's possible to send "false" or "useless" data instead o
 (Italian only)
 
 1. Descrizione generale
+
 Il progetto prevede la creazione di un sistema per l’out of band
 signaling, ovvero una forma di scambio di informazioni tramite
 segnalazione collaterale. Gli attori coinvolti sono un certo numero di
