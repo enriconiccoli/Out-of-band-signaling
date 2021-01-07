@@ -4,6 +4,7 @@ Through this technique it's possible to send "false" or "useless" data instead o
 (Italian only)
 
 1. Descrizione generale
+
 Il progetto prevede la creazione di un sistema per l’out of band
 signaling, ovvero una forma di scambio di informazioni tramite
 segnalazione collaterale. Gli attori coinvolti sono un certo numero di
@@ -13,7 +14,9 @@ Prima di procedere nella descrizione dettagliata degli Attori è bene
 descrivere quali Strutture Dati e Macro siano state introdotte.
 
 1.1.Macro
+
 1.1.1.
+
 Vi sono 3 macro utilizzate nella gestione degli errori:
 - ERReq(Val1,Val2,Mex): controlla se Val1==Val2 e, nel
 caso, stampa Mex tramite Perror()
@@ -33,8 +36,12 @@ shift in modo da ottenere un intero a 64 bit
 - ntonll(val): concatena due ntonl effettuando dei byte
 shift in modo da ottenere un intero a 64 bit
 
-1.2.Strutture Dati
+
+
+1.2. Strutture Dati
+
 1.2.1.
+
 Passando alle Strutture Dati è stata introdotta, tramite libreria
 apposita “myHash.h”, una HashMap di supporto per il
 Supervisor. In questa struttura vengono inserite le stime
@@ -48,8 +55,13 @@ eseguita dal Supervisor, è pari a O(n) al caso pessimo e O(1) al
 caso medio.
 
 
+
+
+
 2. Attori
+
 2.1.Supervisor
+
 Il Supervisor si occupa di avviare i vari Server e di comunicare con
 loro, inoltre effettua lo storage dei secret. L’avvio dei Server avviene
 subito dopo le operazioni iniziali (come l’installazione di un signalhandler, dichiarazione e inizializzazione di variabili utili ecc) tramite
@@ -66,7 +78,10 @@ interrotta da un segnale nonostante la presenza del flag
 SA_RESTART, si è scelto, relativamente alla Select, di ignorare EINTR
 e proseguire con la normale computazione.
 
+
+
 2.2.Server
+
 Il Server si occupa di comunicare con un certo numero di client e di
 effettuare l’invio di messaggi verso il Supervisor. Il Server all’avvio
 effettua una serie di operazioni preliminari, quali installazione di
@@ -80,7 +95,10 @@ l’invio al Supervisor della sua stima di secret. Il Server si ferma alla
 ricezione di SIGINT e, come nel caso del Supervisor, la Select ignora
 EINTR.
 
+
+
 2.3.Client
+
 Il Client si occupa di inviare ad un certo numero di Server una
 sequenza di messaggi. Inizialmente controlla che i parametri passati
 da riga di comando rispettino le linee guida, dopodiché generacasualmente il Secret e l’ID (quest’ultimo viene generato
@@ -89,23 +107,34 @@ sceglie i Server a cui connettersi e inizia il ciclo principale nel quale
 invia, ogni secret millisecondi, un messaggio ad uno dei Server.
 
 
+
+
+
 3. Bash Script
 
 3.1.Test
+
 Lo script Test, come da consegne, si occupa semplicemente
 dell’avvio di Supervisor e Client, redirigendo poi il loro output su file
 specifici, e dell’invio cadenzato di SIGINT. Vengono effettuate delle
 stampe su STDOUT per segnalare a quale punto della computazione
 si è arrivati in un dato istante.
 
+
+
 3.2.Misura
+
 Lo script Misura effettua delle comparazioni fra i dati attesi e quelli
 stimati dai Supervisor, prendendo in input il contenuto dei file
 client.txt e supervisor.txt e restituendo in output una breve
 statistica.
 
 
+
+
+
 4. Istruzioni per l’esecuzione
+
 L’esecuzione del Progetto avviene tramite Makefile. Nella cartella è
 sufficiente eseguire l’operazione “make” per ottenere tutti gli eseguibili
 necessari, seguito da “make test” per avviare lo script Test e
